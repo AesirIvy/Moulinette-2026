@@ -12,9 +12,9 @@ int main() {
 	int mod;
 	ft_div_mod(a, b, &div, &mod);
 	if (div == a / b && mod == a % b)
-		printf(TAB GREEN "Operation successful\n" RESET);
+		printf(TAB GREEN "Handles two divisible int\n" RESET);
 	else {
-		printf(TAB RED "Operation unsuccesful\n\n" RESET);
+		printf(TAB RED "Doesn't handle two divisible int\n\n" RESET);
 		printf("Input:\n" TAB "a = %d\n" TAB "b = %d\n\n", a, b);
 		printf("Expecting:\n" TAB "div = %d\n" TAB "mod = %d\n\n", a / b, a % b);
 		printf("Get:\n" TAB "div = %d\n" TAB "mod = %d\n\n", div, mod);

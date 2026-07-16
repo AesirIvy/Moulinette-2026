@@ -1,6 +1,9 @@
 #ifndef MOSTIMA_H
 #define MOSTIMA_H
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #define TMP_SIZE 512
 #define BUF_SIZE 1024
 #define OUT_SIZE 16384
@@ -34,6 +37,7 @@ char* get_self_path(void);
 void test_func(char* dir, char* test);
 
 // defined in module/check_mm.c
-void check_c_pointers();
+void check_c_pointers(void);
+void check_c_strings(void);
 
 #endif

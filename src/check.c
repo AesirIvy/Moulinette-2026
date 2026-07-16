@@ -115,12 +115,23 @@ void check_allowed_functions(const char* dir, char** allowed_func) {
 		char obj[BUF_SIZE];
 		snprintf(obj, sizeof(obj), "/tmp/%s.o", name);
 		char cmd[OUT_SIZE];
-		snprintf(cmd, sizeof(cmd), "cc -Wall -Wextra -Werror -c %s -o %s > /dev/null", src, obj);
+		snprintf(cmd, sizeof(cmd), "cc -Wall -Wextra -Werror -c %s -o %s >log.txt 2>&1", src, obj);
 		if (system(cmd) != 0) {
 			fprintf(stderr, TAB "Allowed functions" FNTAB RED "KO" RESET "\n\n");
-			printf("Compilation failed for '%s'\n", src);
+			FILE *fp = fopen("log.txt", "r");
+			if (!fp) {
+				fprintf(stderr, RED "check_allowed_functions: fopen log.txt: %s", strerror(errno));
+				remove("log.txt");
+				exit(EXIT_FAILURE);
+			}
+			char line[BUF_SIZE];
+			while (fgets(line, sizeof(line), fp))
+				fputs(line, stderr);
+			fclose(fp);
+			remove("log.txt");
 			exit(EXIT_FAILURE);
 		}
+		remove("log.txt");
 
 		snprintf(cmd, sizeof(cmd), "nm -u %s | awk '{print $NF}'", obj);
 		FILE *fp = popen(cmd, "r");
@@ -160,6 +171,11 @@ void check_allowed_functions(const char* dir, char** allowed_func) {
 	closedir(dp);
 }
 
+void blank(void) {
+	fprintf(stderr, RED "This chapter is not yet supported\n" RESET);
+	exit(EXIT_FAILURE);
+}
+
 void check() {
 	DIR *dp = opendir("ex0");
 	if (!dp) {
@@ -168,7 +184,7 @@ void check() {
 	}
 
 	int i;
-	int ref_amt = 1;
+	int ref_amt = 8;
 	char* refs[] = {
 		"ft_ft.c",
 		"ft_str_is_alpha.c",
@@ -179,24 +195,30 @@ void check() {
 		"ft_point.h",
 		"Makefile"
 	};
+	void (*funcs[])(void) = {
+		check_c_pointers,
+		blank,
+		blank,
+		blank,
+		blank,
+		check_c_strings,
+		blank,
+		blank,
+	};
 	struct dirent* entry;
 	while ((entry = readdir(dp))) {
 		i = 0;
 		while (i < ref_amt) {
-			if (strcmp(entry->d_name, refs[i]) == 0)
-				break;
+			if (strcmp(entry->d_name, refs[i]) == 0) {
+				funcs[i]();
+				closedir(dp);
+				return;
+			}
 			++i;
 		}
-		if (i < ref_amt)
-			break;
 	}
 	closedir(dp);
-
-	if (i == 0)
-		check_c_pointers();
-	else {
-		printf("%d\n", i);
-		fprintf(stderr, RED "couldn't determine the project\n" RESET);
-	}
+	fprintf(stderr, RED "Couldn't determine the project\n" RESET);
+	exit(EXIT_FAILURE);
 }
 

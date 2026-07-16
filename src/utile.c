@@ -41,7 +41,7 @@ void test_func(char* dir, char* test_path) {
 	remove("log.txt");
 	if (system("./a.out") != 0) {
 		remove("a.out");
-		printf(BOLD "Status: " RED BOLD "failed\n" RESET);
+		printf(BOLD "Project status: " RED BOLD "failed\n" RESET);
 		exit(EXIT_FAILURE);
 	}
 	remove("a.out");

@@ -3,6 +3,8 @@
 ## List of available chapters
 - C Pointers
 
+- C Strings
+
 ## List of planned chapters
 - C Programming Fundamentals
 - C Characters Arithmetics
@@ -13,7 +15,6 @@
 - C Memory Management
 - C System Interface
 
-- C Strings
 - C Structures
 
 - C Preprocessor
@@ -27,7 +28,7 @@
 ## Usage
 Compile with `make`
 
-add this line to the end of your shell startup file,
+Add this line to the end of your shell startup file,
 such as `.bashrc` or `.zshrc`:<br>
 `export PATH="$HOME/path/to/the/repo:$PATH"`
 
