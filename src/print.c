@@ -65,13 +65,13 @@ void print_report(char* project) {
 		}
 	}
 	if (i == project_amt) {
-		fprintf(stderr, RED "the project %s is not in the list\n" RESET, project);
+		fprintf(stderr, RED "the project %s is not in the list\n\n" RESET, project);
 		print_report(NULL);
 		exit(EXIT_FAILURE);
 	}
 
 	char filepath[PATH_MAX];
-	snprintf(filepath, PATH_MAX, "%s/res/report/%s.md", get_cwd(), projects[i]);
+	snprintf(filepath, sizeof(filepath), "%s/res/report/%s.md", get_self_path(), projects[i]);
 	FILE* file = fopen(filepath, "r");
 	if (!file)
 	{
@@ -79,7 +79,7 @@ void print_report(char* project) {
 		exit(EXIT_FAILURE);
 	}
 	char line[BUF_SIZE];
-	while (fgets(line, BUF_SIZE, file))
+	while (fgets(line, sizeof(line), file))
 		fputs(line, stdout);
 	fclose(file);
 	printf("\n");

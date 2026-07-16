@@ -1,5 +1,29 @@
 # Moulinette 2026
 
+## List of available chapters
+- C Pointers
+
+## List of planned chapters
+- C Programming Fundamentals
+- C Characters Arithmetics
+- C Algorithmics Fundamentals
+
+- C Simple Strings
+- C Function Pointers
+- C Memory Management
+- C System Interface
+
+- C Strings
+- C Structures
+
+- C Preprocessor
+- C Libft
+
+- C System Interface
+
+- C Linked Lists
+- C Binary Trees
+
 ## Usage
 Compile with `make`
 
