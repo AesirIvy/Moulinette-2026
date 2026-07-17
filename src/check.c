@@ -200,7 +200,7 @@ void check(void) {
 	void (*funcs[])(void) = {
 		check_c_pointers,
 		check_c_simple_strings,
-		blank,
+		check_c_function_pointers,
 		blank,
 		blank,
 		check_c_strings,

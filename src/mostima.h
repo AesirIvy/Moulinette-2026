@@ -39,6 +39,7 @@ void test_func(const char* dir, const char* test_path);
 // defined in module/check_mm.c
 void check_c_pointers(void);
 void check_c_simple_strings(void);
+void check_c_function_pointers(void);
 
 // defined in module/check_ds.c
 void check_c_strings(void);

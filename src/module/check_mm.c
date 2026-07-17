@@ -173,3 +173,54 @@ void check_c_simple_strings(void) {
 	test_func("ex10", test_path);
 	printf("\n");
 }
+
+void check_c_function_pointers(void) {
+	char test_path[TMP_SIZE];
+	snprintf(test_path, sizeof(test_path), "%s/res/test/C Function Pointers", get_self_path());
+
+	printf(BOLD "Exercise 0: ft_foreach\n" RESET);
+	char* ex0_expected[] = {"ft_foreach.c", NULL};
+	check_allowed_files("ex0", ex0_expected, NULL);
+	check_norminette("ex0", "");
+	check_allowed_functions("ex0", test_path, NULL);
+	printf("\n");
+	test_func("ex0", test_path);
+	printf("\n");
+
+	printf(BOLD "Exercise 1: ft_map\n" RESET);
+	char* ex1_expected[] = {"ft_map.c", NULL};
+	char* ex1_allowed[] = {"malloc", NULL};
+	check_allowed_files("ex1", ex1_expected, NULL);
+	check_norminette("ex1", "");
+	check_allowed_functions("ex1", test_path, ex1_allowed);
+	printf("\n");
+	test_func("ex1", test_path);
+	printf("\n");
+
+	printf(BOLD "Exercise 2: ft_any\n" RESET);
+	char* ex2_expected[] = {"ft_any.c", NULL};
+	check_allowed_files("ex2", ex2_expected, NULL);
+	check_norminette("ex2", "");
+	check_allowed_functions("ex2", test_path, NULL);
+	printf("\n");
+	test_func("ex2", test_path);
+	printf("\n");
+
+	printf(BOLD "Exercise 3: ft_count_if\n" RESET);
+	char* ex3_expected[] = {"ft_count_if.c", NULL};
+	check_allowed_files("ex3", ex3_expected, NULL);
+	check_norminette("ex3", "");
+	check_allowed_functions("ex3", test_path, NULL);
+	printf("\n");
+	test_func("ex3", test_path);
+	printf("\n");
+
+	printf(BOLD "Exercise 4: ft_is_sort\n" RESET);
+	char* ex4_expected[] = {"ft_is_sort.c", NULL};
+	check_allowed_files("ex4", ex4_expected, NULL);
+	check_norminette("ex4", "");
+	check_allowed_functions("ex4", test_path, NULL);
+	printf("\n");
+	test_func("ex4", test_path);
+	printf("\n");
+}

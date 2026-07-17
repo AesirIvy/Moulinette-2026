@@ -44,18 +44,19 @@ int main() {
 		return 1;
 	}
 
+	char* alt_dest = (char*)malloc(sizeof(char) * 32);
 	char* res_dest = (char*)malloc(sizeof(char) * 32);
 	srand(time(NULL));
 	int n = random() % 16;
-	ft_strncpy(dest, src, n);
+	ft_strncpy(alt_dest, src, n);
 	strncpy(res_dest, src, n);
-	if (strcmp(dest, src) == 0)
+	if (strcmp(alt_dest, src) == 0)
 		printf(TAB GREEN "Handles n lower than src len\n" RESET);
 	else {
 		printf(TAB RED "Doesn't handle n lower than src len\n\n" RESET);
 		printf("for n = %d\n", n);
 		printf("Expecting: %s\n", res_dest);
-		printf("Get: %s\n\n", dest);
+		printf("Get: %s\n\n", alt_dest);
 		return 1;
 	}
 	free(src);
