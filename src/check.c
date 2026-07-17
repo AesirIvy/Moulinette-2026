@@ -199,7 +199,7 @@ void check(void) {
 	};
 	void (*funcs[])(void) = {
 		check_c_pointers,
-		blank,
+		check_c_simple_strings,
 		blank,
 		blank,
 		blank,

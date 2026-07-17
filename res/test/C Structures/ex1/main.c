@@ -41,10 +41,10 @@ int main() {
 			printf("Get: %s\n\n", out[i].str);
 			return 1;
 		}
-		if (&out[i].str != &av[i]) {
+		if (out[i].str != av[i]) {
 			printf(TAB RED "The stored str is a copy\n\n" RESET);
-			printf("Expecting: address: %p\n", &res_size);
-			printf("Get: address: %p\n\n", &out[i].size);
+			printf("Expecting: address: %p\n", av[i]);
+			printf("Get: address: %p\n\n", out[i].str);
 			return 1;
 		}
 		if (strcmp(out[i].copy, av[i]) != 0) {
@@ -55,12 +55,12 @@ int main() {
 		}
 		if (&out[i].copy == &av[i]) {
 			printf(TAB RED "The stored copy received is the original\n\n" RESET);
-			printf("Expecting: address: %p\n", &res_size);
-			printf("Get: address: %p\n\n", &out[i].size);
+			printf("Expecting: address: %p\n", av[i]);
+			printf("Get: address: %p\n\n", out[i].copy);
 			return 1;
 		}
 	}
-	printf(TAB GREEN "Handles multiple args\n" RESET);
+	printf(TAB GREEN "Data are correctly stored\n" RESET);
 	free(out);
 	for (int i = 0; i < ac; ++i)
 		free(av[i]);

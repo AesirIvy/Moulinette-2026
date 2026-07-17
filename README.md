@@ -2,20 +2,15 @@
 
 ## List of available chapters
 - C Pointers
+- C Simple Strings
 
 - C Strings
+- C Structures
 
 ## List of planned chapters
-- C Programming Fundamentals
-- C Characters Arithmetics
-- C Algorithmics Fundamentals
-
-- C Simple Strings
 - C Function Pointers
 - C Memory Management
 - C System Interface
-
-- C Structures
 
 - C Preprocessor
 - C Libft
