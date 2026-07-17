@@ -8,12 +8,12 @@
 #include <unistd.h>
 #include "mostima.h"
 
-void check_norminette(char* path) {
+void check_norminette(char* path, char* flag) {
 	char log[BUF_SIZE];
 	char cmd[OUT_SIZE];
 
 	snprintf(log, sizeof(log), "log.txt");
-	snprintf(cmd, sizeof(cmd), "norminette %s >%s 2>&1", path, log);
+	snprintf(cmd, sizeof(cmd), "norminette %s %s >%s 2>&1", path, flag, log);
 	if (system(cmd) != 0) {
 		printf(TAB "Norminette" NTAB RED "KO" RESET "\n\n");
 		FILE *fp = fopen(log, "r");
@@ -96,7 +96,7 @@ void check_allowed_files(const char* dir, char** expected, char** allowed_ext) {
 	closedir(dp);
 }
 
-void check_allowed_functions(const char* dir, char** allowed_func) {
+void check_allowed_functions(const char* dir, const char* test_path, char** allowed_func) {
 	DIR *dp = opendir(dir);
 	if (!dp) {
 		fprintf(stderr, RED "check_allowed_functions: %s: %s\n" RESET, dir, strerror(errno));
@@ -114,8 +114,10 @@ void check_allowed_functions(const char* dir, char** allowed_func) {
 		snprintf(src, sizeof(src), "%s/%s", dir, name);
 		char obj[BUF_SIZE];
 		snprintf(obj, sizeof(obj), "/tmp/%s.o", name);
+		char hdr[BUF_SIZE];
 		char cmd[OUT_SIZE];
-		snprintf(cmd, sizeof(cmd), "cc -Wall -Wextra -Werror -c %s -o %s >log.txt 2>&1", src, obj);
+		snprintf(hdr, sizeof(hdr), "-I '%s/%s' -I %s", test_path, dir, dir);
+		snprintf(cmd, sizeof(cmd), "cc -Wall -Wextra -Werror %s -c %s -o %s >log.txt 2>&1", hdr, src, obj);
 		if (system(cmd) != 0) {
 			fprintf(stderr, TAB "Allowed functions" FNTAB RED "KO" RESET "\n\n");
 			FILE *fp = fopen("log.txt", "r");
@@ -176,7 +178,7 @@ void blank(void) {
 	exit(EXIT_FAILURE);
 }
 
-void check() {
+void check(void) {
 	DIR *dp = opendir("ex0");
 	if (!dp) {
 		fprintf(stderr, RED "check: ex0: %s\n" RESET, strerror(errno));
@@ -202,7 +204,7 @@ void check() {
 		blank,
 		blank,
 		check_c_strings,
-		blank,
+		check_c_structures,
 		blank,
 	};
 	struct dirent* entry;
@@ -211,6 +213,7 @@ void check() {
 		while (i < ref_amt) {
 			if (strcmp(entry->d_name, refs[i]) == 0) {
 				funcs[i]();
+				printf(BOLD "Project status: " GREEN BOLD "Success\n" RESET);
 				closedir(dp);
 				return;
 			}

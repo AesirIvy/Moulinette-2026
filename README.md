@@ -20,7 +20,7 @@
 - C Preprocessor
 - C Libft
 
-- C System Interface
+- C File Operations
 
 - C Linked Lists
 - C Binary Trees

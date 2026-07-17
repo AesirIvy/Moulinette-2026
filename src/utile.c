@@ -19,11 +19,12 @@ char* get_self_path(void) {
 	return dir;
 }
 
-void test_func(char* dir, char* test_path) {
+void test_func(const char* dir, const char* test_path) {
 	char hdr[BUF_SIZE];
 	char cmd[OUT_SIZE];
-	snprintf(hdr, sizeof(hdr), "-I %s/res/test -I %s", get_self_path(), dir);
-	snprintf(cmd, sizeof(cmd), "cc -Wall -Wextra -Werror %s %s/" "*.c '%s/%s/main.c' >log.txt 2>&1", hdr, dir, test_path, dir);
+	snprintf(hdr, sizeof(hdr), "-I %s/res/test -I '%s/%s' -I %s", get_self_path(), test_path, dir, dir);
+	snprintf(cmd, sizeof(cmd), "(shopt -s nullglob 2>/dev/null; setopt nullglob 2>/dev/null;"
+		"cc -Wall -Wextra -Werror %s  %s/" "*.c '%s/%s/main.c' >log.txt 2>&1)", hdr, dir, test_path, dir);
 	if (system(cmd) != 0) {
 		printf(TAB RED "Compilation failed" RESET "\n\n");
 		FILE *fp = fopen("log.txt", "r");
