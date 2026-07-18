@@ -3,17 +3,14 @@
 ## List of available chapters
 - C Pointers
 - C Simple Strings
+- C Function Pointers
 
 - C Strings
 - C Structures
 
 ## List of planned chapters
-- C Function Pointers
 - C Memory Management
 - C System Interface
-
-- C Preprocessor
-- C Libft
 
 - C File Operations
 

@@ -40,22 +40,22 @@ static int* capture_output(int* tab, int size) {
 }
 
 int main() {
+	srand(time(NULL));
 	int size = random() % 10 + 10;
 	int tab[size];
-	srand(time(NULL));
 	for (int i = 0; i < size; ++i)
 		tab[i] = RAND_INT;
 	int* out = capture_output(tab, size);
 	for (int i = 0; i < size; ++i) {
 		if (out[i] != tab[i] * 2) {
-			printf(TAB RED "Items in tab are incorrectly changed" RESET "\n\n");
+			printf(TAB RED "Items in tab are incorrectly displayed" RESET "\n\n");
 			printf("For i = %d", i);
 			printf("Expecting: %d", tab[i] * 2);
 			printf("Get: %d\n\n", out[i]);
 			exit(EXIT_FAILURE);
 		}
 	}
-	printf(TAB GREEN "Items in tab are correctly changed\n" RESET);
+	printf(TAB GREEN "Handles mysterious function\n" RESET);
 	free(out);
 	return 0;
 }
