@@ -33,10 +33,17 @@ int main() {
 		return 1;
 	}
 
-	char* src = random_word(3, 8);
+	char* src = random_word(6, 10);
 	ft_strncpy(dest, src, 64);
-	if (strcmp(dest, src) == 0)
+	if (strcmp(dest, src) == 0) {
+		for (int i = strlen(src); i < 64; ++i) {
+			if (dest[i] != '\0') {
+				printf(TAB RED "dest isn't padded with '\\0' when n < len(src)\n\n" RESET);
+				exit(EXIT_FAILURE);
+			}
+		}
 		printf(TAB GREEN "Handles n greater than src len\n" RESET);
+	}
 	else {
 		printf(TAB RED "Doesn't handle n greater than src len\n\n" RESET);
 		printf("Expecting: %s\n", src);
@@ -47,10 +54,10 @@ int main() {
 	char* alt_dest = (char*)malloc(sizeof(char) * 32);
 	char* res_dest = (char*)malloc(sizeof(char) * 32);
 	srand(time(NULL));
-	int n = random() % 16;
+	int n = random() % 8 + 1;
 	ft_strncpy(alt_dest, src, n);
 	strncpy(res_dest, src, n);
-	if (strcmp(alt_dest, src) == 0)
+	if (strcmp(alt_dest, res_dest) == 0)
 		printf(TAB GREEN "Handles n lower than src len\n" RESET);
 	else {
 		printf(TAB RED "Doesn't handle n lower than src len\n\n" RESET);

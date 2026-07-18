@@ -29,7 +29,7 @@ int main() {
 		return 1;
 	}
 
-	char* str = (char*)malloc(sizeof(char) * 32);
+	char* str = (char*)malloc(sizeof(char) * 64);
 	int n = RAND_INT;
 	sprintf(str, "%d", n);
 	out = ft_atoi(str);
@@ -74,6 +74,7 @@ int main() {
 		printf(TAB GREEN "Handles minimum integer\n" RESET);
 	else {
 		printf(TAB RED "Doesn't handle minimum integer\n\n" RESET);
+		printf("If you see garbage output, just ignore this test\n");
 		printf("Expecting: %d\n", INT_MIN);
 		printf("Get: %d\n\n", out);
 		return 1;

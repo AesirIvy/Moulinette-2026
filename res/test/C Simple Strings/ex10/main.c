@@ -40,7 +40,7 @@ char* random_non_printable_string(size_t len) {
 	}
 	srand(time(NULL));
 	for (size_t i = 0; i < len; ++i) {
-		str[i] = (char)(rand() % 32);
+		str[i] = (char)(rand() % 31 + 1);
 	}
 	str[len] = '\0';
 	return str;
@@ -93,8 +93,7 @@ int main() {
 	printf(TAB GREEN "Handles empty string\n" RESET);
 
 	char* str = random_printable_string(random() % 32 + 32);
-	char* res = get_non_printable(str);
-	
+	char* res = get_non_printable(str);	
 	capture_output(str, out, sizeof(out));
 	if (strcmp(out, res) != 0) {
 		printf(TAB RED "Incorrect string printed\n\n" RESET);
@@ -116,4 +115,3 @@ int main() {
 	printf(TAB GREEN "Handles random string\n" RESET);
 	return 0;
 }
-
