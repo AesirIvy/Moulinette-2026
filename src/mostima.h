@@ -28,10 +28,6 @@ void check_norminette(char* path, char* flag);
 void check_allowed_files(const char* dir, char** expected, char** allowed_ext);
 void check_allowed_functions(const char* dir, const char* test_path, char** allowed_func);
 
-// defined in print.c
-void print_help(void);
-void print_report(char* project);
-
 // defined in utile.c
 char* get_self_path(void);
 void test_func(const char* dir, const char* test_path);
