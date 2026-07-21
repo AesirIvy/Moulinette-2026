@@ -9,7 +9,7 @@ int main() {
 	srand(time(NULL));
 
 	min = rand() % 20 - 10;
-	max = min - rand() % 5 + 1;
+	max = min - (rand() % 5 + 1);
 	res = ft_ultimate_range(&range, min, max);
 	if (range != NULL) {
 		printf(TAB RED "Didn't point range to NULL when min > max" RESET "\n\n");
@@ -33,7 +33,7 @@ int main() {
 	}
 	printf(TAB GREEN "Handles min = max\n" RESET);
 
-	max = min + rand() % 5 + 1;
+	max = min + (rand() % 5 + 1);
 	res = ft_ultimate_range(&range, min, max);
 	int size = max - min;
 	if (res != size) {

@@ -5,14 +5,11 @@
 - C Simple Strings
 - C Function Pointers
 - C Memory Management
+- C System Interface
+
 
 - C Strings
 - C Structures
-
-## List of planned chapters
-- C System Interface
-
-- C File Operations
 
 ## Usage
 Compile with `make`
