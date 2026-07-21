@@ -201,7 +201,7 @@ void check(void) {
 		check_c_pointers,
 		check_c_simple_strings,
 		check_c_function_pointers,
-		blank,
+		check_c_memory_management,
 		blank,
 		check_c_strings,
 		check_c_structures,

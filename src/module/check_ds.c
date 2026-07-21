@@ -2,7 +2,7 @@
 
 void check_c_strings(void) {
 	char test_path[BUF_SIZE];
-	snprintf(test_path, sizeof(test_path), "%s/res/test/C Strings", get_self_path());
+	snprintf(test_path, sizeof(test_path), "%s/res/C Strings", get_self_path());
 
 	printf(BOLD "Exercise 0: ft_strcpy\n" RESET);
 	char* ex0_expected[] = {"ft_strcpy.c", NULL};
@@ -79,7 +79,7 @@ void check_c_strings(void) {
 
 void check_c_structures(void) {
 	char test_path[BUF_SIZE];
-	snprintf(test_path, sizeof(test_path), "%s/res/test/C Structures", get_self_path());
+	snprintf(test_path, sizeof(test_path), "%s/res/C Structures", get_self_path());
 
 	printf(BOLD "Exercise 0: ft_point.h\n" RESET);
 	char* ex0_expected[] = {"ft_point.h", NULL};

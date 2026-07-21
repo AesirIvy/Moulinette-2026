@@ -4,18 +4,15 @@
 - C Pointers
 - C Simple Strings
 - C Function Pointers
+- C Memory Management
 
 - C Strings
 - C Structures
 
 ## List of planned chapters
-- C Memory Management
 - C System Interface
 
 - C File Operations
-
-- C Linked Lists
-- C Binary Trees
 
 ## Usage
 Compile with `make`
