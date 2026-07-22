@@ -2,15 +2,10 @@
 
 char* ft_strjoin(int size, char** strs, char* sep);
 
-static void fill_str(int size, char **strs, char *sep, char *res)
-{
-	int	i;
-	int	j;
-	int	k;
-
-	i = 0;
-	j = 0;
-	k = 0;
+static void fill_str(int size, char **strs, char *sep, char *res) {
+	int i = 0;
+	int j = 0;
+	int k = 0;
 	while (i < size)
 	{
 		j = 0;
@@ -31,44 +26,26 @@ static void fill_str(int size, char **strs, char *sep, char *res)
 	}
 }
 
-static int get_str_len(char *str)
-{
-	int	i;
-	int	len;
-
-	i = 0;
-	len = 0;
-	while (str[i] != '\0')
-	{
-		++len;
-		++i;
-	}
-	return (len);
-}
-
 static char* strjoin(int size, char **strs, char *sep)
 {
-	char	*res;
-	int		i;
-	int		res_len;
-	int		sep_len;
+	int i;
 
 	i = 0;
-	res_len = 0;
+	int res_len = 0;
 	if (size == 0)
 	{
-		res = (char *)malloc(1);
+		char* res = (char *)malloc(1);
 		res[0] = '\0';
 		return (res);
 	}
-	sep_len = get_str_len(sep);
+	int sep_len = strlen(sep);
 	while (i < size)
 	{
-		res_len += get_str_len(strs[i]) + sep_len;
+		res_len += strlen(strs[i]) + sep_len;
 		++i;
 	}
 	res_len -= sep_len;
-	res = (char *)malloc(sizeof(char) * (res_len + 1));
+	char* res = (char*)malloc(sizeof(char) * (res_len + 1));
 	i = 0;
 	fill_str(size, strs, sep, res);
 	res[res_len] = '\0';

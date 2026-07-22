@@ -8,7 +8,7 @@ int main() {
 	srand(time(NULL));
 
 	min = rand() % 20 - 10;
-	max = min - rand() % 5 + 1;
+	max = min - (rand() % 5 + 1);
 	res = ft_range(min, max);
 	if (res != NULL) {
 		printf(TAB RED "Didn't return a null pointer when min > max" RESET "\n\n");
@@ -25,7 +25,7 @@ int main() {
 	}
 	printf(TAB GREEN "Handles min = max\n" RESET);
 
-	max = min + rand() % 5 + 1;
+	max = min + (rand() % 5 + 1);
 	res = ft_range(min, max);
 	int i = 0;
 	while (min < max) {
