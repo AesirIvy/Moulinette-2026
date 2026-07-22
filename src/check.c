@@ -96,81 +96,32 @@ void check_allowed_files(const char* dir, char** expected, char** allowed_ext) {
 	closedir(dp);
 }
 
-void check_allowed_functions(const char* dir, const char* test_path, char** allowed_func) {
-	DIR *dp = opendir(dir);
-	if (!dp) {
-		fprintf(stderr, RED "check_allowed_functions: %s: %s\n" RESET, dir, strerror(errno));
+void check_allowed_functions(const char* dir, const char* test_path, char* allowed_func) {
+	char cmd[BUF_SIZE];
+	snprintf(cmd, sizeof(cmd), "bash %s/res/script/is_cheating.sh %s %s %s",
+		get_self_path(), dir, test_path, allowed_func);
+
+	FILE *fp = popen(cmd, "r");
+	if (!fp) {
+		fprintf(stderr, RED "check_allowed_functions: popen is_cheating.sh: %s\n", strerror(errno));
 		exit(EXIT_FAILURE);
 	}
 
-	struct dirent *entry;
-	while ((entry = readdir(dp))) {
-		const char* name = entry->d_name;
-		size_t len = strlen(name);
-		if (len < 3 || strcmp(name + len - 2, ".c") != 0)
-			continue;
-			
-		char src[BUF_SIZE];
-		snprintf(src, sizeof(src), "%s/%s", dir, name);
-		char obj[BUF_SIZE];
-		snprintf(obj, sizeof(obj), "/tmp/%s.o", name);
-		char hdr[BUF_SIZE];
-		char cmd[OUT_SIZE];
-		snprintf(hdr, sizeof(hdr), "-I '%s/%s' -I %s", test_path, dir, dir);
-		snprintf(cmd, sizeof(cmd), "cc -Wall -Wextra -Werror %s -c %s -o %s >log.txt 2>&1", hdr, src, obj);
-		if (system(cmd) != 0) {
-			fprintf(stderr, TAB "Allowed functions" FNTAB RED "KO" RESET "\n\n");
-			FILE *fp = fopen("log.txt", "r");
-			if (!fp) {
-				fprintf(stderr, RED "check_allowed_functions: fopen log.txt: %s", strerror(errno));
-				remove("log.txt");
-				exit(EXIT_FAILURE);
-			}
-			char line[BUF_SIZE];
-			while (fgets(line, sizeof(line), fp))
-				fputs(line, stderr);
-			fclose(fp);
-			remove("log.txt");
-			exit(EXIT_FAILURE);
-		}
-		remove("log.txt");
-
-		snprintf(cmd, sizeof(cmd), "nm -u %s | awk '{print $NF}'", obj);
-		FILE *fp = popen(cmd, "r");
-		if (!fp) {
-			fprintf(stderr, RED "check_allowed_functions: %s: %s\n" RESET, name, strerror(errno));
-			remove(obj);
-			exit(EXIT_FAILURE);
-		}
-
-		char symbol[BUF_SIZE];
-		while (fgets(symbol, sizeof(symbol), fp)) {
-			symbol[strcspn(symbol, "\n")] = '\0';
-			if (symbol[0] == '\0')
-				continue;
-
-			bool allowed = false;
-			if (allowed_func) {
-				for (char** ap = allowed_func; *ap != NULL; ++ap) {
-					if (strcmp(symbol, *ap) == 0) {
-						allowed = true;
-						break;
-					}
-				}
-			}
-			if (!allowed) {
-				fprintf(stderr, TAB "Allowed functions" FNTAB RED "KO" RESET "\n\n");
-				printf("Forbidden function '%s' called in '%s'\n", symbol, name);
-				pclose(fp);
-				remove(obj);
-				exit(EXIT_FAILURE);
-			}
-		}
+	char output[BUF_SIZE];
+	if (!fgets(output, sizeof(output), fp)) {
+		fprintf(stderr, RED "check_allowed_functions: no output from is_cheating.sh\n");
 		pclose(fp);
-		remove(obj);
+		exit(EXIT_FAILURE);
 	}
-	fprintf(stderr, TAB "Allowed functions" FNTAB GREEN "OK" RESET "\n");
-	closedir(dp);
+
+	if (strcmp(output, "\n") != 0) {
+		printf(TAB "Allowed functions" FNTAB RED "KO" RESET "\n\n");
+		printf("%s\n", output);
+		pclose(fp);
+		exit(EXIT_FAILURE);
+	}
+	
+	printf(TAB "Allowed functions" FNTAB GREEN "OK" RESET "\n");
 }
 
 void blank(void) {
@@ -186,7 +137,7 @@ void check(void) {
 	}
 
 	int i;
-	int ref_amt = 8;
+	int ref_amt = 7;
 	char* refs[] = {
 		"ft_ft.c",
 		"ft_str_is_alpha.c",
@@ -195,7 +146,6 @@ void check(void) {
 		"ft_print_program_name.c",
 		"ft_strcpy.c",
 		"ft_point.h",
-		"Makefile"
 	};
 	void (*funcs[])(void) = {
 		check_c_pointers,
@@ -205,7 +155,6 @@ void check(void) {
 		blank,
 		check_c_strings,
 		check_c_structures,
-		blank,
 	};
 	struct dirent* entry;
 	while ((entry = readdir(dp))) {
@@ -224,4 +173,3 @@ void check(void) {
 	fprintf(stderr, RED "Couldn't determine the project\n" RESET);
 	exit(EXIT_FAILURE);
 }
-

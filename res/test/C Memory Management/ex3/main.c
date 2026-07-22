@@ -12,7 +12,7 @@ int main() {
 		exit(EXIT_FAILURE);
 	}
 	free(res);
-	pirntf(TAB GREEN "Handles size is 0" RESET);
+	printf(TAB GREEN "Handles size is 0" RESET);
 
 	res = ft_strjoin(1, strs, "");
 	

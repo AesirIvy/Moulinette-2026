@@ -26,7 +26,7 @@
 void check(void);
 void check_norminette(char* path, char* flag);
 void check_allowed_files(const char* dir, char** expected, char** allowed_ext);
-void check_allowed_functions(const char* dir, const char* test_path, char** allowed_func);
+void check_allowed_functions(const char* dir, const char* test_path, char* allowed_func);
 
 // defined in utile.c
 char* get_self_path(void);

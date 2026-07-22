@@ -23,7 +23,7 @@ void test_func(const char* dir, const char* test_path) {
 	char tmp[TMP_SIZE];
 	char hdr[BUF_SIZE];
 	char cmd[OUT_SIZE];
-	snprintf(hdr, sizeof(hdr), "-I %s/res -I '%s/%s' -I %s", get_self_path(), test_path, dir, dir);
+	snprintf(hdr, sizeof(hdr), "-I %s/res/test -I '%s/%s' -I %s", get_self_path(), test_path, dir, dir);
 	snprintf(cmd, sizeof(cmd), "cp '%s/%s/main.c' %s", test_path, dir, dir);
 	if (system(cmd) != 0) {
 		printf(TAB RED "test_func: system cp failed" RESET "\n\n");

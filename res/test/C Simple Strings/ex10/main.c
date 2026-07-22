@@ -21,7 +21,7 @@ int parse_escape_char(char* res, int j, int nb) {
 char* get_non_printable(char *str) {
 	int i = 0;
 	int j = 0;
-	char* res = (char*)malloc(sizeof(char) * BUF_SIZE);
+	char* res = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 	while (str[i])
 	{
 		if (!(str[i] >= 32 && str[i] <= 126))
@@ -30,6 +30,7 @@ char* get_non_printable(char *str) {
 			res[j++] = str[i];
 		++i;
 	}
+	res[j] = '\0';
 	return res;
 }
 
