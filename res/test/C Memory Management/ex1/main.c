@@ -12,6 +12,7 @@ int main() {
 	res = ft_range(min, max);
 	if (res != NULL) {
 		printf(TAB RED "Didn't return a null pointer when min > max" RESET "\n\n");
+		printf("for: min = %d and max = %d\n", min, max);
 		exit(EXIT_FAILURE);
 	}
 	printf(TAB GREEN "Handles min > max\n" RESET);
