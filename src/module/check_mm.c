@@ -314,4 +314,14 @@ void check_c_system_interface(void) {
 	test_prog("ex2", NULL, "", "");
 	test_prog("ex2", "should not be ignored", "ignored\nbe\nnot\nshould\n", "");
 	printf(TAB GREEN "Test passed\n\n" RESET);
+
+	printf(BOLD "Exercise 3: ft_sort_params\n" RESET);
+	char* ex3_expected[] = {"ft_sort_params.c", NULL};
+	check_allowed_files("ex3", ex3_expected, NULL);
+	check_norminette("ex3", "");
+	check_allowed_functions("ex3", test_path, "write");
+	printf("\n");
+	test_prog("ex3", NULL, "", "");
+	test_prog("ex3", "Penguins are the cutest animal in the world", "Penguins\nanimal\nare\ncutest\nin\nthe\nthe\nworld\n", "");
+	printf(TAB GREEN "Test passed\n\n" RESET);
 }

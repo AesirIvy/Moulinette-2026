@@ -3,7 +3,7 @@
 char* ft_strdup(char* src);
 
 char* random_printable_str(int len) {
-	char* buf = malloc(sizeof(char) * len);
+	char* buf = malloc(sizeof(char) * (len + 1));
 	for (int i = 0; i < len; ++i) {
 		buf[i] = rand() % 95 + 32;
 	}
