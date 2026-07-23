@@ -31,12 +31,14 @@ void check_allowed_functions(const char* dir, const char* test_path, char* allow
 // defined in utile.c
 char* get_self_path(void);
 void test_func(const char* dir, const char* test_path);
+void test_prog(const char *dir, const char *args, const char *expected_stdout, const char *expected_stderr);
 
 // defined in module/check_mm.c
 void check_c_pointers(void);
 void check_c_simple_strings(void);
 void check_c_function_pointers(void);
 void check_c_memory_management(void);
+void check_c_system_interface(void);
 
 // defined in module/check_ds.c
 void check_c_strings(void);

@@ -101,6 +101,16 @@ int main() {
 	char* out;
 	char* res;
 
+	char* out_n0 = ft_convert_base(n, dec, "");
+	char* out_n1 = ft_convert_base(n, "yoyo", dec);
+	char* out_n2 = ft_convert_base(n, dec, "\n\v\f\r");
+	char* out_n3 = ft_convert_base(n, "+-", dec);
+	if (out_n0 || out_n1 || out_n2 || out_n3) {
+		printf(TAB RED "Doesn't handle invalid base" RESET "\n\n");
+		exit(EXIT_FAILURE);
+	}
+	printf(TAB GREEN "Handles invilid base\n" RESET);
+
 	srand(time(NULL));
 	snprintf(n, sizeof(n), "%d", RAND_INT);
 	out = ft_convert_base(n, dec, bin);
@@ -141,5 +151,16 @@ int main() {
 		exit(EXIT_FAILURE);
 	}
 	printf(TAB GREEN "Handles hexadecimal to decimal\n" RESET);
+
+	snprintf(n, sizeof(n), "%d", RAND_INT);
+	out = ft_convert_base(n, dec, "arknights");
+	res = convert_base(n, dec, "arknights");
+	if (strcmp(out, res) != 0) {
+		printf(TAB RED "Doesn't handle decimal to random base" RESET "\n\n");
+		printf("Expecting: %s\n", res);
+		printf("Get: %s\n\n", out);
+		exit(EXIT_FAILURE);
+	}
+	printf(TAB GREEN "Handles decimal to random base\n" RESET);
 	return 0;
 }

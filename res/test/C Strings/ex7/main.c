@@ -23,7 +23,7 @@ int main() {
 	if (out == 0)
 		printf(TAB GREEN "Handles empty string\n" RESET);
 	else {
-		printf(TAB RED "Doesn't handle empty string\n\n" RESET);
+		printf(TAB RED "Doesn't handle empty string" RESET "\n\n");
 		printf("Expecting: 0\n");
 		printf("Get: %d\n\n", out);
 		return 1;
@@ -36,7 +36,7 @@ int main() {
 	if (out == n)
 		printf(TAB GREEN "Handles random integer\n" RESET);
 	else {
-		printf(TAB RED "Doesn't handle random integer\n\n" RESET);
+		printf(TAB RED "Doesn't handle random integer" RESET "\n\n");
 		printf("Expecting: %d\n", n);
 		printf("Get: %d\n\n", out);
 		return 1;
@@ -52,7 +52,7 @@ int main() {
 	if (out == sign * n)
 		printf(TAB GREEN "Handles minimum integer\n" RESET);
 	else {
-		printf(TAB RED "Doesn't handle minimum integer\n\n" RESET);
+		printf(TAB RED "Doesn't handle minimum integer" RESET "\n\n");
 		printf("Expecting: %d\n", sign * n);
 		printf("Get: %d\n\n", out);
 		return 1;
@@ -62,7 +62,7 @@ int main() {
 	if (out == 0)
 		printf(TAB GREEN "Handles zero as input\n" RESET);
 	else {
-		printf(TAB RED "Doesn't handle zero as input\n\n" RESET);
+		printf(TAB RED "Doesn't handle zero as input" RESET "\n\n");
 		printf("Expecting: 0\n");
 		printf("Get: %d\n\n", out);
 		return 1;
@@ -73,8 +73,8 @@ int main() {
 	if (out == INT_MIN)
 		printf(TAB GREEN "Handles minimum integer\n" RESET);
 	else {
-		printf(TAB RED "Doesn't handle minimum integer\n\n" RESET);
-		printf("If you see garbage output, just ignore this test\n");
+		printf(TAB MAGENTA "If you see garbage output, just ignore this test\n" RESET);
+		printf(TAB RED "Doesn't handle minimum integer" RESET "\n\n");
 		printf("Expecting: %d\n", INT_MIN);
 		printf("Get: %d\n\n", out);
 		return 1;
@@ -85,7 +85,7 @@ int main() {
 	if (out == INT_MAX)
 		printf(TAB GREEN "Handles maximum integer\n" RESET);
 	else {
-		printf(TAB RED "Doesn't handle maximum integer\n\n" RESET);
+		printf(TAB RED "Doesn't handle maximum integer" RESET "\n\n");
 		printf("Expecting: %d\n", INT_MAX);
 		printf("Get: %d\n\n", out);
 		return 1;

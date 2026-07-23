@@ -124,11 +124,6 @@ void check_allowed_functions(const char* dir, const char* test_path, char* allow
 	printf(TAB "Allowed functions" FNTAB GREEN "OK" RESET "\n");
 }
 
-void blank(void) {
-	fprintf(stderr, RED "This chapter is not yet supported\n" RESET);
-	exit(EXIT_FAILURE);
-}
-
 void check(void) {
 	DIR *dp = opendir("ex0");
 	if (!dp) {
@@ -145,16 +140,16 @@ void check(void) {
 		"ft_strdup.c",
 		"ft_print_program_name.c",
 		"ft_strcpy.c",
-		"ft_point.h",
+		"ft_point.h"
 	};
 	void (*funcs[])(void) = {
 		check_c_pointers,
 		check_c_simple_strings,
 		check_c_function_pointers,
 		check_c_memory_management,
-		blank,
+		check_c_system_interface,
 		check_c_strings,
-		check_c_structures,
+		check_c_structures
 	};
 	struct dirent* entry;
 	while ((entry = readdir(dp))) {

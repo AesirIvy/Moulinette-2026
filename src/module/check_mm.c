@@ -280,3 +280,38 @@ void check_c_memory_management(void) {
 	test_func("ex5", test_path);
 	printf("\n");
 }
+
+void check_c_system_interface(void) {
+	char test_path[TMP_SIZE];
+	snprintf(test_path, sizeof(test_path), "%s/res/test", get_self_path());
+
+	printf(BOLD "Exercise 0: ft_print_program_name\n" RESET);
+	char* ex0_expected[] = {"ft_print_program_name.c", NULL};
+	check_allowed_files("ex0", ex0_expected, NULL);
+	check_norminette("ex0", "");
+	check_allowed_functions("ex0", test_path, "write");
+	printf("\n");
+	test_prog("ex0", NULL, "./a.out\n", "");
+	test_prog("ex0", "should be ignored", "./a.out\n", "");
+	printf(TAB GREEN "Test passed\n\n" RESET);
+
+	printf(BOLD "Exercise 1: ft_print_params\n" RESET);
+	char* ex1_expected[] = {"ft_print_params.c", NULL};
+	check_allowed_files("ex1", ex1_expected, NULL);
+	check_norminette("ex1", "");
+	check_allowed_functions("ex1", test_path, "write");
+	printf("\n");
+	test_prog("ex1", NULL, "", "");
+	test_prog("ex1", "should not be ignored", "should\nnot\nbe\nignored\n", "");
+	printf(TAB GREEN "Test passed\n\n" RESET);
+
+	printf(BOLD "Exercise 2: ft_rev_params\n" RESET);
+	char* ex2_expected[] = {"ft_rev_params.c", NULL};
+	check_allowed_files("ex2", ex2_expected, NULL);
+	check_norminette("ex2", "");
+	check_allowed_functions("ex2", test_path, "write");
+	printf("\n");
+	test_prog("ex2", NULL, "", "");
+	test_prog("ex2", "should not be ignored", "ignored\nbe\nnot\nshould\n", "");
+	printf(TAB GREEN "Test passed\n\n" RESET);
+}

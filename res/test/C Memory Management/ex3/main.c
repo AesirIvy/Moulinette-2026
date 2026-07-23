@@ -28,9 +28,6 @@ static void fill_str(int size, char **strs, char *sep, char *res) {
 
 static char* strjoin(int size, char **strs, char *sep)
 {
-	int i;
-
-	i = 0;
 	int res_len = 0;
 	if (size == 0)
 	{
@@ -39,19 +36,15 @@ static char* strjoin(int size, char **strs, char *sep)
 		return (res);
 	}
 	int sep_len = strlen(sep);
-	while (i < size)
-	{
+	for (int i = 0; i < size; ++i) {
 		res_len += strlen(strs[i]) + sep_len;
-		++i;
 	}
 	res_len -= sep_len;
 	char* res = (char*)malloc(sizeof(char) * (res_len + 1));
-	i = 0;
 	fill_str(size, strs, sep, res);
 	res[res_len] = '\0';
 	return (res);
 }
-
 
 char* random_printable_str(int len) {
 	char* buf = malloc(sizeof(char) * len);
@@ -65,11 +58,11 @@ char* random_printable_str(int len) {
 char** random_printable_strs(int lst_len, int str_len) {
 	char** buf = (char**)malloc(sizeof(char*) * lst_len);
 	for (int i = 0; i < lst_len; ++i) {
-		buf[i] = (char*)malloc(sizeof(char) * str_len);
+		buf[i] = (char*)malloc(sizeof(char) * (str_len + 1));
 		for (int j = 0; j < str_len; ++j) {
 			buf[i][j] = rand() % 95 + 32;
 		}
-		buf[str_len] = '\0';
+		buf[i][str_len] = '\0';
 	}
 	return buf;
 }

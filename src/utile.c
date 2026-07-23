@@ -56,3 +56,95 @@ void test_func(const char* dir, const char* test_path) {
 	}
 	remove("a.out");
 }
+
+static char *read_file(const char *path) {
+	FILE *fp = fopen(path, "r");
+	if (!fp) return NULL;
+
+	fseek(fp, 0, SEEK_END);
+	long size = ftell(fp);
+	fseek(fp, 0, SEEK_SET);
+
+	char *content = malloc(size + 1);
+	if (!content) {
+		fclose(fp);
+		return NULL;
+	}
+	fread(content, 1, size, fp);
+	content[size] = '\0';
+	fclose(fp);
+	return content;
+}
+
+static void compare_output(const char *label, const char *expected, const char *actual, const char *dir) {
+	if (expected == NULL)
+		return;
+	if (strcmp(expected, actual) != 0) {
+		printf(TAB RED "Mismatch in %s for %s" RESET "\n\n", label, dir);
+		printf("Expected:\n%s\n", expected);
+		printf("Got:\n%s\n\n", actual);
+		exit(EXIT_FAILURE);
+	}
+}
+
+void test_prog(const char *dir, const char *args, const char *expected_stdout, const char *expected_stderr) {
+	char cmd[OUT_SIZE];
+	const char *out_std = "stdout.txt";
+	const char *out_err = "stderr.txt";
+	const char *log_file = "log.txt";
+	const char *exe = "a.out";
+
+	snprintf(cmd, sizeof(cmd), "cc -Wall -Wextra -Werror %s/*.c -o %s 2>%s", dir, exe, log_file);
+	if (system(cmd) != 0) {
+		fprintf(stderr, "Compilation failed for %s\n", dir);
+		FILE *fp = fopen(log_file, "r");
+		if (fp) {
+			char line[BUF_SIZE];
+			while (fgets(line, sizeof(line), fp))
+				fputs(line, stderr);
+			fclose(fp);
+		}
+		remove(log_file);
+		exit(EXIT_FAILURE);
+	}
+	remove(log_file);
+
+	if (args && args[0])
+		snprintf(cmd, sizeof(cmd), "./%s %s >%s 2>%s", exe, args, out_std, out_err);
+	else
+		snprintf(cmd, sizeof(cmd), "./%s >%s 2>%s", exe, out_std, out_err);
+
+	int ret = system(cmd);
+	if (ret != 0) {
+		fprintf(stderr, "Runtime error (exit %d) for %s\n", ret, dir);
+		char *err_content = read_file(out_err);
+		if (err_content) {
+			fputs(err_content, stderr);
+			free(err_content);
+		}
+		remove(out_std);
+		remove(out_err);
+		remove(exe);
+		exit(EXIT_FAILURE);
+	}
+
+	char *stdout_content = read_file(out_std);
+	char *stderr_content = read_file(out_err);
+
+	remove(out_std);
+	remove(out_err);
+	remove(exe);
+
+	if (!stdout_content || !stderr_content) {
+		fprintf(stderr, "Failed to read output files for %s\n", dir);
+		free(stdout_content);
+		free(stderr_content);
+		exit(EXIT_FAILURE);
+	}
+
+	compare_output("stdout", expected_stdout, stdout_content, dir);
+	compare_output("stderr", expected_stderr, stderr_content, dir);
+
+	free(stdout_content);
+	free(stderr_content);
+}
